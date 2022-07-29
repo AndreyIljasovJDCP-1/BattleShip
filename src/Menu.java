@@ -28,6 +28,45 @@ public abstract class Menu {
 
     /**
      * Диалог с пользователем.
+     * Выбор скорости показа полей в авторежиме.
+     *
+     * @return int число (1-4) - выбранный пункт меню
+     */
+
+    public static int selectDelayMode() {
+
+        int output;
+        do {
+            System.out.println("\nВыберите скорость показа полей игры: ");
+            System.out.println("0. Без паузы.");
+            System.out.println("1. Быстро.");
+            System.out.println("2. Средне.");
+            System.out.println("3. Медленно.");
+            System.out.println("4. Выход.");
+            String input = scanner.nextLine();
+            input = input.replaceAll(" ", "");
+            if (input.length() != 1) {
+                System.out.println("Некорректные данные. Введите 0, 1, 2, 3 или 4.");
+                output = 0;
+                continue;
+            }
+            try {
+                output = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Некорректные данные. Введите 0, 1, 2, 3 или 4.");
+                output = 0;
+                continue;
+            }
+            if (output > 4 || output < 0) {
+                System.out.println("Некорректные данные. Введите 0, 1, 2, 3 или 4.");
+            }
+
+        } while (output != 0 && output != 1 && output != 2 && output != 3 && output != 4);
+        return output;
+    }
+
+    /**
+     * Диалог с пользователем.
      * Выбор режима игры.
      *
      * @return int число (1-4) - выбранный пункт меню
@@ -56,7 +95,7 @@ public abstract class Menu {
                 output = 0;
                 continue;
             }
-            if (output>4||output<1) {
+            if (output > 4 || output < 1) {
                 System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
             }
 
@@ -96,7 +135,7 @@ public abstract class Menu {
                 output = 0;
                 continue;
             }
-            if (output>3||output<1) {
+            if (output > 3 || output < 1) {
                 System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
             }
 
@@ -133,7 +172,7 @@ public abstract class Menu {
                 output = 0;
                 continue;
             }
-            if (output>3||output<1) {
+            if (output > 3 || output < 1) {
                 System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
             }
 

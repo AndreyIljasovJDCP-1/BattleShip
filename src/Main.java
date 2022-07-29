@@ -1,5 +1,4 @@
 /**
- *
  * <h1> Игра "Морской бой"</h1>
  *
  * <p>Правила игры - общепринятые.
@@ -17,6 +16,7 @@
 public class Main {
 
     public static final char EMPTY = '-';
+    public static int delay;
 
     public static void main(String[] args) throws Exception {
 
@@ -48,8 +48,6 @@ public class Main {
                     return;
                 }
 
-                System.out.println("\nПоехали!");
-                Thread.sleep(1000);
                 break;
             case 2:
 
@@ -66,18 +64,13 @@ public class Main {
                 }
 
                 System.out.println("\n" + playerSecond.getName() + " расставит корабли самостоятельно.");
-
                 playerSecond.placeShipsAutoMode();
-                System.out.println("\nПоехали!");
-                Thread.sleep(1000);
                 break;
             case 3:
 
                 String[] computerNames = Menu.getComputerNames();
-
                 playerFirst = new Player(computerNames[0]);
                 playerFirst.setTurn(true);
-
                 playerSecond = new Player(computerNames[1]);
 
                 Point.fillField(playerFirst.getPlayerField(), EMPTY);
@@ -85,22 +78,30 @@ public class Main {
 
                 playerFirst.placeShipsAutoMode();
                 Thread.sleep(1000);
-
                 playerSecond.placeShipsAutoMode();
-                System.out.println("\nПоехали!");
-                Thread.sleep(1000);
                 break;
             default:
                 endProgramme();
                 return;
         }
 
-        
+        if (playerFirst.getShootingMode() == 2 && playerSecond.getShootingMode() == 2) {
+
+            delay = Menu.selectDelayMode();
+
+            if (delay == 4) {
+                endProgramme();
+                return;
+            }
+        } else {
+            delay = 1;
+        }
+
+        System.out.println("\nПоехали!");
+        Thread.sleep(1000L * delay);
 
         Point.fillField(playerFirst.getBattleField(), EMPTY);
         Point.fillField(playerSecond.getBattleField(), EMPTY);
-
-
 
         /* Блок стрельбы. Непосредственно игра.*/
 
