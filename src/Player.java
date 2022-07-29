@@ -3,7 +3,6 @@ import java.util.Random;
 /**
  * Реализует основную логику игры,
  * от расстановки кораблей до выдачи статистики по итогам.
- *
  */
 public class Player {
     public static final int SIZE = 10;
@@ -58,6 +57,7 @@ public class Player {
 
     /**
      * Установка режима обработки координат.
+     *
      * @param select код режима: 1 - UserPoint, 2 - AutoPoint
      */
     public void setPointMode(int select) {
@@ -95,6 +95,10 @@ public class Player {
 
     public void showPlayerField() {
         showField(playerField);
+    }
+
+    public int getShootingMode() {
+        return shootingMode;
     }
 
     /**
@@ -315,8 +319,9 @@ public class Player {
      * Обороняющийся игрок обрабатывает выстрел, и сообщает результат.
      * Оба игрока отмечают у себя на поле выстрел.
      * При промахе меняется очередность.
-     * @see #handleShot(Point, Player)
+     *
      * @param defender обороняющийся игрок.
+     * @see #handleShot(Point, Player)
      */
     public void openFire(Player defender) throws InterruptedException {
 
@@ -331,7 +336,7 @@ public class Player {
             System.out.println("Координаты: " + pointMode);
             defender.handleShot(pointMode, this);
             showBattleField();
-            Thread.sleep(1000);
+            Thread.sleep(1000L * Main.delay);
 
         }
     }
@@ -342,9 +347,10 @@ public class Player {
      * Если корабль "убит", область вокруг корабля на поле атакующего отмечается *****
      * {@link  #markKilledShip(int[][])}
      * <p>При промахе меняется очередность.
-     * @see #openFire(Player)
+     *
      * @param shot    координаты выстрела
      * @param shooter атакующий игрок
+     * @see #openFire(Player)
      */
     public void handleShot(Point shot, Player shooter) {
 
@@ -423,7 +429,7 @@ public class Player {
         }
         for (int[] coupleXY : roundShip) {
 
-            AutoPoint checkPoint=new AutoPoint();
+            AutoPoint checkPoint = new AutoPoint();
             checkPoint.setX(coupleXY[0]);
             checkPoint.setY(coupleXY[1]);
 
