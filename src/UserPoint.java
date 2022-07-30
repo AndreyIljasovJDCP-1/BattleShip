@@ -5,10 +5,8 @@
  */
 public class UserPoint extends Point {
 
-
     @Override
     public void setNewXY(char[][] field) {
-
         boolean notInField;
 
         do {
@@ -27,13 +25,10 @@ public class UserPoint extends Point {
             }
 
             try {
-
                 x = Integer.parseInt(input.split(" ")[1]) - 1;
                 y = Character.isUpperCase(input.charAt(0)) ? input.charAt(0) - 65
                         : Character.toUpperCase(input.charAt(0)) - 65;
-
             } catch (NumberFormatException e) {
-
                 System.out.println("Некорректные координаты. Повторите ввод!");
                 notInField = true;
                 continue;

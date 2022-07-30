@@ -1,6 +1,5 @@
 /**
  * Создает, хранит и обрабатывает информацию о корабле.
- *
  */
 public class Ship {
     /**
@@ -23,6 +22,7 @@ public class Ship {
     public Ship(Point placePoint, int orientation, int longShip) {
         this.shipStatus = new boolean[longShip];
         this.shipCoordinates = new int[longShip][2];
+
         if (orientation == 1) {
             for (int i = 0; i < longShip; i++) {
                 this.shipCoordinates[i][0] = placePoint.getX();
@@ -44,6 +44,7 @@ public class Ship {
      */
     public boolean isShipInjured(Point shot) {
         for (int i = 0; i < shipCoordinates.length; i++) {
+
             if ((shipCoordinates[i][0] == shot.getX()) && (shipCoordinates[i][1] == shot.getY())) {
                 shipStatus[i] = true;
                 return true;

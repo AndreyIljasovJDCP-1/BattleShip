@@ -45,11 +45,13 @@ public abstract class Menu {
             System.out.println("4. Выход.");
             String input = scanner.nextLine();
             input = input.replaceAll(" ", "");
+
             if (input.length() != 1) {
                 System.out.println("Некорректные данные. Введите 0, 1, 2, 3 или 4.");
                 output = 0;
                 continue;
             }
+
             try {
                 output = Integer.parseInt(input);
             } catch (NumberFormatException e) {
@@ -57,6 +59,7 @@ public abstract class Menu {
                 output = 0;
                 continue;
             }
+
             if (output > 4 || output < 0) {
                 System.out.println("Некорректные данные. Введите 0, 1, 2, 3 или 4.");
             }
@@ -83,11 +86,13 @@ public abstract class Menu {
             System.out.println("4. Выход.");
             String input = scanner.nextLine();
             input = input.replaceAll(" ", "");
+
             if (input.length() != 1) {
                 System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
                 output = 0;
                 continue;
             }
+
             try {
                 output = Integer.parseInt(input);
             } catch (NumberFormatException e) {
@@ -95,6 +100,7 @@ public abstract class Menu {
                 output = 0;
                 continue;
             }
+
             if (output > 4 || output < 1) {
                 System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
             }
@@ -123,11 +129,13 @@ public abstract class Menu {
             System.out.println("3. Выход.");
             String input = scanner.nextLine();
             input = input.replaceAll(" ", "");
+
             if (input.length() != 1) {
                 System.out.println("Некорректные данные. Введите 1, 2 или 3.");
                 output = 0;
                 continue;
             }
+
             try {
                 output = Integer.parseInt(input);
             } catch (NumberFormatException e) {
@@ -135,6 +143,7 @@ public abstract class Menu {
                 output = 0;
                 continue;
             }
+
             if (output > 3 || output < 1) {
                 System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
             }
@@ -160,11 +169,13 @@ public abstract class Menu {
             System.out.println("3. Выход");
             String input = scanner.nextLine();
             input = input.replaceAll(" ", "");
+
             if (input.length() != 1) {
                 System.out.println("Некорректные данные.Введите 1, 2 или 3.");
                 output = 0;
                 continue;
             }
+
             try {
                 output = Integer.parseInt(input);
             } catch (NumberFormatException e) {
@@ -172,6 +183,7 @@ public abstract class Menu {
                 output = 0;
                 continue;
             }
+
             if (output > 3 || output < 1) {
                 System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
             }

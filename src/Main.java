@@ -10,13 +10,13 @@
  * <p>При промахе очередь переходит к другому игроку.
  * <p>Выигрывает игрок, первым потопивший все корабли соперника.
  *
- * @version 3.3
+ * @version 3.4
  */
 
 public class Main {
 
     public static final char EMPTY = '-';
-    public static int delay;
+    public static int delay = 1;
 
     public static void main(String[] args) throws Exception {
 
@@ -29,7 +29,6 @@ public class Main {
 
         switch (select) {
             case 1:
-
                 playerFirst = Menu.addPlayer(1);
                 playerFirst.setTurn(true);
                 playerSecond = Menu.addPlayer(2);
@@ -47,10 +46,9 @@ public class Main {
                     endProgramme();
                     return;
                 }
-
                 break;
-            case 2:
 
+            case 2:
                 playerFirst = Menu.addPlayer(1);
                 playerFirst.setTurn(true);
                 playerSecond = new Player(Menu.getComputerNames()[0]);
@@ -66,8 +64,8 @@ public class Main {
                 System.out.println("\n" + playerSecond.getName() + " расставит корабли самостоятельно.");
                 playerSecond.placeShipsAutoMode();
                 break;
-            case 3:
 
+            case 3:
                 String[] computerNames = Menu.getComputerNames();
                 playerFirst = new Player(computerNames[0]);
                 playerFirst.setTurn(true);
@@ -80,21 +78,19 @@ public class Main {
                 Thread.sleep(1000);
                 playerSecond.placeShipsAutoMode();
                 break;
+
             default:
                 endProgramme();
                 return;
         }
 
         if (playerFirst.getShootingMode() == 2 && playerSecond.getShootingMode() == 2) {
-
             delay = Menu.selectDelayMode();
 
             if (delay == 4) {
                 endProgramme();
                 return;
             }
-        } else {
-            delay = 1;
         }
 
         System.out.println("\nПоехали!");

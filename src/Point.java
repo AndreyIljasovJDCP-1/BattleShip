@@ -26,6 +26,7 @@ public abstract class Point {
     public int getY() {
         return y;
     }
+
     public void setX(int x) {
         this.x = x;
     }
@@ -70,6 +71,7 @@ public abstract class Point {
 
     /**
      * Проверяет, в пределах ли поля координаты (х,у).
+     *
      * @return true - в пределах, false - нет
      */
     public boolean isInField() {
@@ -78,6 +80,7 @@ public abstract class Point {
 
     /**
      * Проверяет, занято ли поле по координатам(х,у).
+     *
      * @return true - занято, false - свободно
      */
     public boolean isBusyField(char[][] playerField) {
@@ -95,19 +98,32 @@ public abstract class Point {
         char[][] helpArr = new char[SIZE + 2][SIZE + 2];
         fillField(helpArr, EMPTY);
 
-        for (int j = 1; j < SIZE + 1; j++)
+        for (int j = 1; j < SIZE + 1; j++) {
             for (int i = 1; i < SIZE + 1; i++) {
                 helpArr[i][j] = currentField[i - 1][j - 1];
             }
+        }
 
         if (orientation == 1) {
             for (int j = y; j <= y + shipLong + 1; j++) {
-                for (int i = x; i <= x + 2; i++) freeCell &= (helpArr[i][j] == EMPTY);
-                if (!freeCell) break;
+                for (int i = x; i <= x + 2; i++) {
+                    freeCell &= (helpArr[i][j] == EMPTY);
+                }
+
+                if (!freeCell) {
+                    break;
+                }
             }
-        } else for (int j = x; j <= x + shipLong + 1; j++) {
-            for (int i = y; i <= y + 2; i++) freeCell &= (helpArr[j][i] == EMPTY);
-            if (!freeCell) break;
+        } else {
+            for (int j = x; j <= x + shipLong + 1; j++) {
+                for (int i = y; i <= y + 2; i++) {
+                    freeCell &= (helpArr[j][i] == EMPTY);
+                }
+
+                if (!freeCell) {
+                    break;
+                }
+            }
         }
         return !freeCell;
     }
@@ -116,7 +132,7 @@ public abstract class Point {
      * Метод отрисовки корабля на поле игрока.
      *
      * @param playerField поле игрока
-     * @param shipLong длина корабля
+     * @param shipLong    длина корабля
      * @param orientation ориентация
      */
 
@@ -140,9 +156,10 @@ public abstract class Point {
      * @param symbol символ.
      */
     public static void fillField(char[][] field, char symbol) {
-        for (char[] row : field) Arrays.fill(row, symbol);
+        for (char[] row : field) {
+            Arrays.fill(row, symbol);
+        }
     }
-
 
     public String transformXY() {
         return (char) (y + 65) + "-" + (x + 1);

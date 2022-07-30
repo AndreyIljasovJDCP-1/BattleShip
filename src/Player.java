@@ -109,12 +109,16 @@ public class Player {
     public void showField(char[][] field) {
         int i = 0;
         char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+
         System.out.print("   ");
-        for (char s : letters) System.out.print(s + " ");
+        for (char s : letters) {
+            System.out.print(s + " ");
+        }
         System.out.println();
+
         for (char[] rows : field) {
             i++;
-            System.out.print(i < 10 ? " " + i + "|" : i + "|");
+            System.out.print((i < 10) ? " " + i + "|" : i + "|");
             for (char cell : rows) {
                 System.out.print(cell + "|");
             }
@@ -131,6 +135,7 @@ public class Player {
 
     public boolean selectModeShipsPlace() {
         int placeMode = Menu.selectMode(name, "режим расстановки кораблей");
+
         if (placeMode == 1) {
             setPointMode(1);
             return placeShipsHandMode();
@@ -168,16 +173,14 @@ public class Player {
         System.out.println("Начинаем расстановку кораблей игрока: " + name);
 
         for (int shipLong = 4; shipLong >= 1; shipLong--) {
-
             for (int shipCount = 1; shipCount <= 5 - shipLong; shipCount++) {
 
                 System.out.println("Выберите место для " + shipLong + "-палубного корабля.");
-                boolean isBusy = true;
 
+                boolean isBusy = true;
                 int orientation = 1;
 
                 while (isBusy) {
-
                     isBusy = false;
                     pointMode.setNewXY(playerField);
                     orientation = Menu.selectOrientation();
@@ -191,6 +194,7 @@ public class Player {
                         System.out.println("Ошибка! Не хватит длины!");
                         continue;
                     }
+
                     if (pointMode.isBusyAround(playerField, orientation, shipLong)) {
                         isBusy = true;
                         System.out.println("Ошибка! Не хватит места вокруг!");
@@ -199,7 +203,6 @@ public class Player {
 
                 pointMode.drawShip(playerField, shipLong, orientation);
                 addShipToList(new Ship(pointMode, orientation, shipLong));
-
                 System.out.println("Осталось разместить " + (5 - shipLong - shipCount) + " шт. " + shipLong + "-палубных.");
                 showPlayerField();
             }
@@ -214,18 +217,14 @@ public class Player {
      * с соблюдением расстояния между ними не менее 1 клетки.
      */
     public void placeShipsAutoMode() {
-
-        System.out.println("\nНачинаем расстановку кораблей игрока: " + name);
-
         int[][] busyCells = new int[144][2];
         int sizeBusyCells = 0;
 
+        System.out.println("\nНачинаем расстановку кораблей игрока: " + name);
 
         for (int shipLong = 4; shipLong >= 1; shipLong--) {
             for (int shipCount = 1; shipCount <= 5 - shipLong; shipCount++) {
-
                 boolean isBusy = true;
-
                 int orientation = 1;
 
                 while (isBusy) {
@@ -237,10 +236,12 @@ public class Player {
                         isBusy = true;
                         continue;
                     }
+
                     if (pointMode.isLongNotEnough(orientation, shipLong)) {
                         isBusy = true;
                         continue;
                     }
+
                     if (sizeBusyCells != 0) {
                         for (int b = 0; b < sizeBusyCells; b++) {
                             if (pointMode.getX() == busyCells[b][0] && pointMode.getY() == busyCells[b][1]) {
@@ -279,6 +280,7 @@ public class Player {
     public static int fillBusy(int[][] busyCells, Point placePoint, int shipLong, int orientation, int sizeBusyCells) {
         int x = placePoint.getX();
         int y = placePoint.getY();
+
         if (orientation == 1) {
             for (int column = y - 1; column < y + shipLong + 1; column++) {
                 for (int row = x - 1; row <= x + 1; row++) {
@@ -306,6 +308,7 @@ public class Player {
      */
     public void addShipToList(Ship ship) {
         for (int i = 0; i < ships.length; i++) {
+
             if (ships[i] == null) {
                 ships[i] = ship;
                 return;
@@ -324,7 +327,6 @@ public class Player {
      * @see #handleShot(Point, Player)
      */
     public void openFire(Player defender) throws InterruptedException {
-
         if (turn) {
             System.out.println("Стреляет: " + name);
 
@@ -337,7 +339,6 @@ public class Player {
             defender.handleShot(pointMode, this);
             showBattleField();
             Thread.sleep(1000L * Main.delay);
-
         }
     }
 
@@ -353,12 +354,9 @@ public class Player {
      * @see #openFire(Player)
      */
     public void handleShot(Point shot, Player shooter) {
-
         for (Ship ship : ships) {
 
             if (ship.isShipInjured(shot)) {
-
-
                 playerField[shot.getX()][shot.getY()] = INJURED;
                 shooter.getBattleField()[shot.getX()][shot.getY()] = INJURED;
 
@@ -404,12 +402,15 @@ public class Player {
         int x = ship[0][0];
         int y = ship[0][1];
         int orientation;
+
         if (ship.length != 1) {
             orientation = ship[0][0] == ship[1][0] ? 1 : 2;
         } else {
             orientation = 1;
         }
+
         size = 0;
+
         if (orientation == 1) {
             for (int column = y - 1; column < y + ship.length + 1; column++) {
                 for (int row = x - 1; row <= x + 1; row++) {
@@ -427,8 +428,8 @@ public class Player {
                 }
             }
         }
-        for (int[] coupleXY : roundShip) {
 
+        for (int[] coupleXY : roundShip) {
             AutoPoint checkPoint = new AutoPoint();
             checkPoint.setX(coupleXY[0]);
             checkPoint.setY(coupleXY[1]);
@@ -457,7 +458,6 @@ public class Player {
         int shot1 = countPercent(playerField, SHIP);
         int shot2 = 100 - (shot1 + countPercent(playerField, EMPTY));
         int shot3 = 100 - countPercent(playerLost.getPlayerField(), EMPTY);
-
 
         System.out.printf("\nИгрок: %s Сделано выстрелов: %d Точность: %.2f%%",
                 name, shot3, 2000.0 / shot3);

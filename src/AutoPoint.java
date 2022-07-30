@@ -9,6 +9,7 @@ public class AutoPoint extends Point {
         this.x = getRandomXY();
         this.y = getRandomXY();
     }
+
     @Override
     public void setNewXY(char[][] field) {
         int startIndex;
@@ -21,11 +22,12 @@ public class AutoPoint extends Point {
 
         /* Формируем 2 строки 0-99 длина 100 с полем батл по горизонтали row, по вертикали column */
 
-        for (int j = 0; j < SIZE; j++)
+        for (int j = 0; j < SIZE; j++) {
             for (int i = 0; i < SIZE; i++) {
                 row.append(field[j][i]);
                 column.append(field[i][j]);
             }
+        }
 
         /* По горизонтали окружим раненых ХХХХ, ХХХ и ХХ мнимыми * для следующих проверок. */
 
@@ -43,13 +45,11 @@ public class AutoPoint extends Point {
                 /* offsetRight-это смещение вправо, offsetLeft-смещение влево */
 
                 while (startIndex > -1) {
-
                     endIndex = startIndex + searchNow.length();
 
                     if (startIndex % SIZE == 0) { // Найден корабль. Проверка впритык влево?
                         offsetRight = 1;
                         offsetLeft = 0;
-
                     } else if (endIndex == SIZE) { // Найден корабль. Проверка впритык вправо?
                         offsetRight = 0;
                         offsetLeft = 1;
@@ -78,13 +78,11 @@ public class AutoPoint extends Point {
                 /* По вертикали окружим раненых в линию ХХХХ, ХХХ и ХХ мнимыми * для следующих проверок. */
 
                 String subColumn = column.substring(SIZE * i, SIZE * (i + 1));
-
                 startIndex = subColumn.indexOf(searchNow);
 
                 /* теперь offsetRight-это смещение вниз, offsetLeft-смещение вверх */
 
                 while (startIndex > -1) {
-
                     endIndex = startIndex + searchNow.length();
 
                     if ((startIndex % SIZE == 0)) { // Найден корабль. Проверка впритык вверх?
@@ -126,30 +124,31 @@ public class AutoPoint extends Point {
 
                 String subRow = row.substring(SIZE * i, SIZE * (i + 1));
                 startIndex = subRow.indexOf(searchNow + "-");
-                while (startIndex > -1) {
 
+                while (startIndex > -1) {
                     endIndex = startIndex + searchNow.length();
 
                     if ((column.charAt(i + SIZE * (endIndex)) != OFF_TARGET)) { //можно атаковать
-
                         x = i;
                         y = endIndex;
                         return;
                     }
+
                     startIndex = subRow.indexOf(searchNow + "-", endIndex);
                 }
 
                 /* ищем по горизонтали -XXX,-XX,-X */
 
                 startIndex = subRow.indexOf("-" + searchNow);
+
                 while (startIndex > -1) {
 
                     if (column.charAt(i + SIZE * startIndex) != OFF_TARGET) { //можно атаковать
-
                         x = i;
                         y = startIndex;
                         return;
                     }
+
                     startIndex = subRow.indexOf("-" + searchNow, startIndex + searchNow.length());
                 }
 
@@ -160,26 +159,28 @@ public class AutoPoint extends Point {
 
                 while (startIndex > -1) {
                     endIndex = startIndex + searchNow.length();
-                    if ((row.charAt(i + SIZE * (endIndex)) != OFF_TARGET)) { //можно атаковать
 
+                    if ((row.charAt(i + SIZE * (endIndex)) != OFF_TARGET)) { //можно атаковать
                         x = endIndex;
                         y = i;
                         return;
                     }
+
                     startIndex = subColumn.indexOf(searchNow + "-", endIndex);
                 }
 
                 /* ищем по вертикали -XXX,-XX */
 
                 startIndex = subColumn.indexOf("-" + searchNow);
+
                 while (startIndex > -1) {
 
                     if ((row.charAt(startIndex * SIZE + i) != OFF_TARGET)) { //можно атаковать
-
                         x = startIndex;
                         y = i;
                         return;
                     }
+
                     startIndex = subColumn.indexOf("-" + searchNow, startIndex + searchNow.length());
                 }
             }
@@ -195,6 +196,7 @@ public class AutoPoint extends Point {
             String vertical = coordinates[1] + "" + coordinates[0];
             int indexFindX = Integer.parseInt(horizontal);
             int indexFindY = Integer.parseInt(vertical);
+
             if (row.charAt(indexFindX) == EMPTY && column.charAt(indexFindY) == EMPTY) {
                 x = coordinates[0];
                 y = coordinates[1];
