@@ -17,10 +17,10 @@ public abstract class Menu {
 
     public static Player addPlayer(int number) {
         String input;
+
         do {
             System.out.println("Введите имя " + number + "-го игрока: ");
             input = scanner.nextLine().replaceAll(" ", "");
-
         } while (input.length() == 0);
 
         return new Player(input);
@@ -34,8 +34,8 @@ public abstract class Menu {
      */
 
     public static int selectDelayMode() {
-
         int output;
+
         do {
             System.out.println("\nВыберите скорость показа полей игры: ");
             System.out.println("0. Без паузы.");
@@ -54,17 +54,16 @@ public abstract class Menu {
 
             try {
                 output = Integer.parseInt(input);
+
+                if (output > 4 || output < 0) {
+                    System.out.println("Некорректные данные. Введите 0, 1, 2, 3 или 4.");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Некорректные данные. Введите 0, 1, 2, 3 или 4.");
                 output = 0;
-                continue;
             }
+        } while (output > 4 || output < 0);
 
-            if (output > 4 || output < 0) {
-                System.out.println("Некорректные данные. Введите 0, 1, 2, 3 или 4.");
-            }
-
-        } while (output != 0 && output != 1 && output != 2 && output != 3 && output != 4);
         return output;
     }
 
@@ -76,8 +75,8 @@ public abstract class Menu {
      */
 
     public static int selectGameMode() {
-
         int output;
+
         do {
             System.out.println("\nВыберите режим игры: ");
             System.out.println("1. Человек vs Человек.");
@@ -95,17 +94,16 @@ public abstract class Menu {
 
             try {
                 output = Integer.parseInt(input);
+
+                if (output > 4 || output < 1) {
+                    System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
                 output = 0;
-                continue;
             }
+        } while (output > 4 || output < 1);
 
-            if (output > 4 || output < 1) {
-                System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
-            }
-
-        } while (output != 1 && output != 2 && output != 3 && output != 4);
         return output;
     }
 
@@ -119,11 +117,11 @@ public abstract class Menu {
      */
 
     public static int selectMode(String name, String selectingMode) {
-
         int output;
-        System.out.println("\n" + name + " выберите " + selectingMode + ":");
-        do {
 
+        System.out.println("\n" + name + " выберите " + selectingMode + ":");
+
+        do {
             System.out.println("1. Вручную.");
             System.out.println("2. Авто.");
             System.out.println("3. Выход.");
@@ -138,17 +136,16 @@ public abstract class Menu {
 
             try {
                 output = Integer.parseInt(input);
+
+                if (output > 3 || output < 1) {
+                    System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Некорректные данные. Введите 1, 2 или 3.");
                 output = 0;
-                continue;
             }
+        } while (output > 3 || output < 1);
 
-            if (output > 3 || output < 1) {
-                System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
-            }
-
-        } while (output != 1 && output != 2 && output != 3);
         return output;
     }
 
@@ -160,8 +157,8 @@ public abstract class Menu {
      */
 
     public static int selectOrientation() {
-
         int output;
+
         do {
             System.out.println("Выберите ориентацию корабля:");
             System.out.println("1. Горизонтальная.");
@@ -178,17 +175,16 @@ public abstract class Menu {
 
             try {
                 output = Integer.parseInt(input);
+
+                if (output > 3 || output < 1) {
+                    System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Некорректные данные.Введите 1, 2 или 3.");
                 output = 0;
-                continue;
             }
+        } while (output > 3 || output < 1);
 
-            if (output > 3 || output < 1) {
-                System.out.println("Некорректные данные. Введите 1, 2, 3 или 4.");
-            }
-
-        } while (output != 1 && output != 2 && output != 3);
         return output;
     }
 
@@ -199,7 +195,6 @@ public abstract class Menu {
      */
 
     public static String[] getComputerNames() {
-
         String[] computerNames = {"SkyNet", "Matrix", "R2-D2", "Deep Blue",
                 "C-3PO", "JARVIS", "VIKI", "Optimus Prime", "Megatron", "Siri"};
         String[] pairNames = new String[2];
@@ -207,7 +202,6 @@ public abstract class Menu {
         do {
             pairNames[0] = computerNames[getRandomXY()];
             pairNames[1] = computerNames[getRandomXY()];
-
         } while (pairNames[0].equals(pairNames[1]));
 
         return pairNames;
