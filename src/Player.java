@@ -26,19 +26,16 @@ public class Player {
     /**
      * Список кораблей игрока.
      */
-
     private final Ship[] ships;
     /**
      * Поле боя игрока
      * (здесь отмечаются выстрелы игрока и обнаруженные корабли соперника).
      */
-
     private final char[][] battleField;
     /**
      * Поле игрока
      * (здесь отмечаются корабли игрока и выстрелы соперника).
      */
-
     private final char[][] playerField;
 
     /**
@@ -61,12 +58,7 @@ public class Player {
      * @param select код режима: 1 - UserPoint, 2 - AutoPoint
      */
     public void setPointMode(int select) {
-        if (select == 1) {
-            this.pointMode = new UserPoint();
-        } else if (select == 2) {
-            this.pointMode = new AutoPoint();
-        }
-
+        this.pointMode = select == 1 ? new UserPoint() : new AutoPoint();
     }
 
     public String getName() {
@@ -385,6 +377,7 @@ public class Player {
      */
     public boolean isGameOver() {
         boolean isLost = true;
+
         for (Ship s : ships) {
             isLost &= s.isShipKilled();
         }
